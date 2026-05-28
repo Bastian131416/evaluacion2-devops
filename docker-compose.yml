@@ -1,0 +1,52 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=evaluacion
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  back-ventas:
+    build:
+      context: ./back-Ventas_SpringBoot/Springboot-API-REST
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_ENDPOINT=db
+      - DB_PORT=3306
+    restart: always
+    depends_on:
+      - db
+
+  back-despachos:
+    build:
+      context: ./back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_ENDPOINT=db
+      - DB_PORT=3306
+    restart: always
+    depends_on:
+      - db
+
+  front-despacho:
+    build:
+      context: ./front_despacho
+      dockerfile: Dockerfile
+    user: root
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - back-ventas
+      - back-despachos
+
+volumes:
+  mysql_data:
