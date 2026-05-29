@@ -22,4 +22,9 @@ jobs:
     - name: Construir y subir imagenes de Docker
       run: |
         docker compose build
-        docker compose push
+        docker tag evaluacion2-back-ventas bastian13/back-ventas:latest
+        docker tag evaluacion2-back-despachos bastian13/back-despachos:latest
+        docker tag evaluacion2-front-despacho bastian13/front-despacho:latest
+        docker push bastian13/back-ventas:latest
+        docker push bastian13/back-despachos:latest
+        docker push bastian13/front-despacho:latest
