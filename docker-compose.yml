@@ -11,6 +11,7 @@ services:
     restart: always
 
   back-ventas:
+    image: bastian13/back-ventas:latest
     build:
       context: ./back-Ventas_SpringBoot/Springboot-API-REST
       dockerfile: Dockerfile
@@ -24,6 +25,7 @@ services:
       - db
 
   back-despachos:
+    image: bastian13/back-despachos:latest
     build:
       context: ./back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO
       dockerfile: Dockerfile
@@ -37,6 +39,7 @@ services:
       - db
 
   front-despacho:
+    image: bastian13/front-despacho:latest
     build:
       context: ./front_despacho
       dockerfile: Dockerfile
